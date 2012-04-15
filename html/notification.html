@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+<style>
+body {
+    overflow:hidden;
+    background: #FFFACD;
+    font-family: Tahoma;
+    font-weight: bold;
+    padding: 0 0 0 5px;
+}
+p {
+    margin: 0 0 0 0.5em;
+}
+a {
+    color: #F60;
+}
+.icon {
+    float: left;
+    padding: 0 3px 0 0;
+}
+.box {
+    clear: both;
+}
+.box .text {
+    overflow: auto;
+}
+</style>
+<script type="text/javascript">
+chrome.extension.sendRequest({id:location.hash.slice(1)}, function(item){
+	if (item.url) {
+        $('#star_area').show();
+        $('#star').data('on', false).css('cursor', 'pointer').click(function () {
+            var star = $(this);
+            var isOn = star.data('on');
+            star.attr('src', isOn ? '/images/star_off.png' : '/images/star_on.png').data('on', !isOn);
+            chrome.extension.sendRequest({id:'bookmark', isAdd: star.data('on'), group_id:item.group_id ,entry_id:item.id});
+        });
+        $('#datetime').text(item.date);
+		$('#link').attr('href', item.url);
+		$('#title').text("[" + item.title + "]");
+		$('#message').text(item.msg);
+	} else if (item.version) {
+		// 更新通知
+        $('#icon_area').show();
+		$('#title').text('[youRoom Notify Update]');
+		$('#message').text(item.version + 'に更新されました。');
+		$('#link').attr('href', "/html/options/news.html").click(function () {
+			window.close();
+		});
+	}
+
+    anchorEventBackgroundWindowOpen();
+});
+
+function anchorEventBackgroundWindowOpen() {
+    // ブラウザを起動していない時に通知があった場合でもリンクからページを開けるようにbackgroundからwindowを開く
+    $('a').each(function (i, e) {
+        var $a = $(e);
+        $a.attr('uri', $a.attr('href'));
+        $a.attr('href', "#"); // backgroundで開くためhrefは無効化
+        $a.attr('window_name', $a.attr('target') || '_blank');
+        $a.attr('target', '');
+        $a.click(function () {
+            chrome.extension.sendRequest({id:'window.open',
+                                          url:$(this).attr('uri'),
+                                          target:$(this).attr('window_name')});
+            window.close();
+        });
+    });
+}
+
+function starOnImg() {
+    return $('<img>').attr('src', chrome.extension.getURL('/images/star_on.png')).css('cursor', 'pointer').data('on', true);
+}
+
+function starOffImg() {
+    return $('<img>').attr('src', chrome.extension.getURL('/images/star_off.png')).css('cursor', 'pointer').data('on', false);
+}
+</script>
+</head>
+<body>
+<div class="box">
+    <div id="icon_area" style="display:none;" class="icon">
+        <img src="/images/icon.png">
+    </div>
+    <div id="star_area" style="display:none;" class="icon">
+        <img id="star" src="/images/star_off.png" height="25" width="25">
+    </div>
+    <div class="text">
+        <p>
+            <a id="link" href="#">
+                <span id="title" ></span><span id="datetime" style="color: #666; font-size: 10px;" >mm/dd hh:mi</span><br />
+                <span id="message" ></span>
+            </a>
+        </p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>youRoom Notify</title>
+  <link href="/css/bootstrap.css" rel="stylesheet">
+  <link href="/css/popup.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="http://goo.gl/Ths3k" target="_blank">youRoom Notify</a>
+
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li class="active"><a id="menu_config" href="#" target="_blank">Config</a></li>
+          <li><a id="menu_news" href="#" target="_blank">News</a></li>
+          <li><a id="menu_about" href="#" target="_blank">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div id="title"></div>
+  <div id="list"></div>
+</div>
+<!-- /container -->
+<script src="/js/jquery-1.7.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/handlebars-1.0.0.beta.6.js"></script>
+
+<script id="title-template" type="text/x-handlebars-template">
+  <h1>{{title}}</h1>
+  <p>{{body}}</p>
+
+</script>
+
+<script id="bookmarkList-template" type="text/x-handlebars-template">
+  <div style="height: 200px; overflow-y:scroll;">
+    <table class="table table-striped table-bordered">
+      <thead>
+      <tr>
+        <th width="10"><a href="http://www.youroom.in/" target="_blank"><img src="/images/icon.png" ></a></th>
+        <th>Message</th>
+      </tr>
+      </thead>
+      <tbody>
+      {{#each entryList}}
+      <tr>
+        <td><img class="star_on" src="/images/star_on.png" data-entry_id="{{id}}" data-group_id="{{group_id}}"></td>
+        <td><a class="bookmark" href="{{url}}" target="_blank">{{bookmarkTitle this}}</a></td>
+      </tr>
+      {{/each}}
+      </tbody>
+    </table>
+  </div>
+</script>
+
+<script type="text/javascript">
+  // title
+  var source = $("#title-template").html();
+  var template = Handlebars.compile(source);
+  var context = {title:"Bookmark List", body:""}
+  $('#title').html(template(context));
+
+  // bookmark list
+  var BG = chrome.extension.getBackgroundPage();
+  var bookmarkList = BG.options.bookmarkList;
+  Handlebars.registerHelper('bookmarkTitle', function (e) {
+    return new Handlebars.SafeString(e.date + ' [' + e.title + '] ' + e.msg);
+  });
+  var template = Handlebars.compile($("#bookmarkList-template").html());
+  $('#list').html(template({entryList:bookmarkList}));
+  $('.star_on').each(function (i, e) {
+    $(e).data('on', true)
+        .click(function () {
+          var self = $(this);
+          var flg = !self.data('on');
+          self.data('on', flg);
+          self.attr('src', flg ? '/images/star_on.png' : '/images/star_off.png');
+          chrome.extension.sendRequest({id:'bookmark', isAdd:flg, entry_id:self.data('entry_id'), group_id:self.data('group_id')});
+        });
+  });
+
+  // menu
+  var host = 'chrome-extension://' + location.host + '/html/options/';
+  $("#menu_config").attr("href", host + 'config.html');
+  $("#menu_news").attr("href", host + 'news.html');
+  $("#menu_about").attr("href", host + 'about.html');
+</script>
+</body>
+</html>
