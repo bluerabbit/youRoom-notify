@@ -1,7 +1,7 @@
 {
   "name":"youRoom Notify",
   "description":"youRoomで投稿されたら通知してくれたり、エントリーをブックマークしたりできる",
-  "version":"0.0.0.6",
+  "version":"0.0.0.7",
   "background_page":"html/background.html",
   "options_page":"html/options/config.html",
   "browser_action":{
