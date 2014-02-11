@@ -7,10 +7,10 @@ if (localStorage['oauth_tokenundefined'] != null) {
 }
 
 chrome.browserAction.onClicked.addListener(function () {
-  if (localStorage['oauth_tokenundefined'] == null) {
-    window.open('/html/options/config.html');
-  } else {
+  if (youroom) {
     window.open('https://www.youroom.in/');
+  } else {
+    window.open('/html/options/config.html');
   }
 });
 
