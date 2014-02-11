@@ -4,9 +4,10 @@ function unit_test() {
   }
 }
 
-var options = Options.load();
+var options      = Options.load();
 var notification = new Notification('images/icon.png', 1000 * options.autoCloseTimeSS);
-var timer = new Timer(1000 * 60 * options.timerMI); // n分に一回
+var timer        = new Timer(1000 * 60 * options.timerMI); // n分に一回
+
 if (localStorage['oauth_tokenundefined'] != null) {
   var youroom = new YouRoom(options.consumer_key, options.consumer_secret);
   youroom.find_my(function (groupList) {
