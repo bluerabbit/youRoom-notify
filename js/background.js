@@ -1,9 +1,3 @@
-function unit_test() {
-  if (assert && assert.DEBUG) {
-    window.open('chrome-extension://' + location.host + '/test/index.html');
-  }
-}
-
 var options      = Options.load();
 var notification = new Notification('images/notification_icon.png', 1000 * options.autoCloseTimeSS);
 var timer        = new Timer(1000 * 60 * options.timerMI); // n分に一回
