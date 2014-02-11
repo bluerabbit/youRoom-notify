@@ -19,13 +19,13 @@ $(function () {
 
 function enabledAuthButton() {
   if (BG.youroom) {
-    $('#auth').attr('disabled', 'disabled');
-    $('#consumer_key').attr('disabled', 'disabled');
-    $('#consumer_secret').attr('disabled', 'disabled');
+    $('#auth').attr('disabled', true);
+    $('#consumer_key').attr('disabled', true);
+    $('#consumer_secret').attr('disabled', true);
   } else if ($('#consumer_key').val().length == 0 || $('#consumer_secret').val().length == 0) {
-    $('#auth').attr('disabled', 'disabled');
+    $('#auth').attr('disabled', true);
   } else {
-    $('#auth').attr('disabled', '');
+    $('#auth').attr('disabled', false);
   }
 };
 
