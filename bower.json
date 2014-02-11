@@ -1,0 +1,23 @@
+{
+  "name": "youRoom Notify",
+  "version": "0.0.1",
+  "main": "index.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "jquery": "~1.7.1",
+    "moment": "~2.5.1",
+    "underscore": "~1.1.7"
+  },
+  "exportsOverride": {
+    "underscore": {
+      "js": "**/*.js"
+    },
+    "jquery": {
+      "js": "**/*.js"
+    }
+  }
+}

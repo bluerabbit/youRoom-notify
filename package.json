@@ -1,0 +1,21 @@
+{
+  "name": "youRoom-Notify",
+  "version": "0.0.1",
+  "description": "this is youRoom Notify grunt project.",
+  "author": "bluerabbit",
+  "license": "BSD",
+  "dependencies": {
+    "coffee-script": "~1.6.2",
+    "grunt-cli": "~0.1.7"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib": "~0.6.0",
+    "grunt-contrib-concat": "~0.1.3",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-contrib-copy": "~0.4.0",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-coffee": "~0.7.0",
+    "load-grunt-tasks": "~0.3.0"
+  }
+}

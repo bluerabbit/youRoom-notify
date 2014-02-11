@@ -1,18 +1,20 @@
 {
   "name":"youRoom Notify",
   "description":"youRoomで投稿されたら通知してくれたり、エントリーをブックマークしたりできる",
-  "version":"0.0.0.7",
-  "background_page":"html/background.html",
+  "version":"0.0.1.0",
+  "manifest_version": 2,
+  "background": {
+    "page": "html/background.html"
+  },
   "options_page":"html/options/config.html",
   "browser_action":{
     "default_title":"youRoom Notify",
-    "default_icon":"images/icon.png",
-    "popup":"html/popup.html"
+    "default_icon":"images/icon.png"
   },
   "content_scripts":[
     {
       "matches":["https://www.youroom.in/r/*"],
-      "js":["js/jquery-1.7.1.min.js", "js/underscore.js", "js/content_scripts.js"]
+      "js":["js/jquery.min.js", "js/content_scripts.js"]
     }
   ],
   "permissions":[
@@ -22,5 +24,6 @@
     "https://youroom.in/oauth/request_token",
     "https://youroom.in/oauth/authorize",
     "https://youroom.in/oauth/access_token"
-  ]
+  ],
+  "content_security_policy": "script-src 'self'; object-src 'self'"
 }
