@@ -8,8 +8,8 @@ $(function () {
   $("#about").attr("href", host + 'about.html');
 
   var message = [
-    {date:'2012/02/18', msgs:['youRoom Notifyを作成しました。', 'http://goo.gl/hZ1zd']},
-    {date:'2014/02/11', msgs:['Chromeのバージョンアップにより動作しなくなっていた問題を修正しました。', 'ブックマーク機能を廃止しました。']}
+    {date:'2014/02/11', msgs:['Chromeのバージョンアップにより動作しなくなっていた問題を修正しました。', 'ブックマーク機能を廃止しました。']},
+    {date:'2012/02/18', msgs:['youRoom Notifyを作成しました。', 'http://goo.gl/hZ1zd']}
   ];
 
   message.forEach(function (e, i) {
