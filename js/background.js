@@ -53,7 +53,7 @@ function extensionUpdateNotify(options) {
     // アップデート
     if (options.appVersion.substring(0, options.appVersion.lastIndexOf(".")) != manifest.version.substring(0, manifest.version.lastIndexOf("."))) {
       // 末尾のバージョンNoを除いた値が更新されていたら通知(末尾のバージョンNoだけが変わっている場合は通知しない)
-      notification.open({title: '更新通知', body: manifest.version + "にバージョンアップしました"});
+      notification.open({url: '/html/options/news.html', title: '[youRoom Notify Update]', body: manifest.version + "に更新されました。"});
     }
     options.appVersion = manifest.version;
     options.save();
