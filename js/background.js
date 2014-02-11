@@ -64,8 +64,9 @@ function notify(youroom, options) {
   youroom.find_by_since(options.lastRequestDate, function (data) {
     data.forEach(function (object) {
       var entry = object.entry;
-      var hash = {url:YouRoom.url(entry), title:YouRoom.roomName(entry) + '@' + YouRoom.userName(entry), date:dateFormat(entry.updated_at), msg:entry.content, id:YouRoom.id(entry), group_id:YouRoom.roomId(entry)}
-      notification.open({url: YouRoom.url(entry), title: YouRoom.roomName(entry) + '@' + YouRoom.userName(entry) + dateFormat(entry.updated_at), body:  entry.content});
+      notification.open({url:   YouRoom.url(entry),
+                         title: YouRoom.roomName(entry) + '@' + YouRoom.userName(entry) + dateFormat(entry.updated_at),
+                         body:  entry.content});
     });
     options.lastRequestDate = new Date();
     options.save();
