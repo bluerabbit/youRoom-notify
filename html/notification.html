@@ -28,7 +28,7 @@ a {
     overflow: auto;
 }
 </style>
-<script type="text/javascript">
+<script type="text/javascript" src="/js/notification.js"></script>
 chrome.extension.sendRequest({id:location.hash.slice(1)}, function(item){
 	if (item.url) {
         $('#star_area').show();

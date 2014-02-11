@@ -6,17 +6,7 @@
   <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen" title="default"/>
   <script type="text/javascript" src="js/jquery/jquery-1.4.1.min.js"></script>
   <script type="text/javascript" src="/js/manifest.js"></script>
-  <script type="text/javascript">
-    $(function () {
-      var manifest = Manifest.load();
-      $('.appname').text(manifest.name);
-      $('#ver').text(manifest.version);
-      var host = 'chrome-extension://' + location.host + '/html/options/';
-      $("#config").attr("href", host + 'config.html');
-      $("#news").attr("href", host + 'news.html');
-      $("#about").attr("href", host + 'about.html');
-    });
-  </script>
+  <script type="text/javascript" src="js/about.js"></script>
 </head>
 <body>
 <div id="page-top-outer">

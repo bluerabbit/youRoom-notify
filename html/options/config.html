@@ -10,6 +10,7 @@
   <script src="js/jquery/custom_jquery.js" type="text/javascript"></script>
   <script type="text/javascript" src="/js/manifest.js"></script>
   <script type="text/javascript" src="js/jquery-lightbox/js/jquery.lightbox-0.5.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
   <link rel="stylesheet" type="text/css" href="js/jquery-lightbox/css/jquery.lightbox-0.5.css" media="screen"/>
   <style type="text/css">
     .keywordDelete {
@@ -21,50 +22,6 @@
       margin-bottom: 5px;
     }
   </style>
-
-  <script type="text/javascript">
-    var BG = chrome.extension.getBackgroundPage();
-    var options = BG.options;
-    $(function () {
-      var manifest = Manifest.load();
-      $('.appname').text(manifest.name);
-
-      var host = 'chrome-extension://' + location.host + '/html/options/';
-      $("#news").attr("href", host + 'news.html');
-      $("#about").attr("href", host + 'about.html');
-      $('#configImage').lightBox();
-      $('#consumer_key').val(options.consumer_key).change(save);
-      $('#consumer_secret').val(options.consumer_secret).change(save);
-      enabledAuthButton();
-      $('#auth').click(function () {
-        options.reset_oauth();
-        save();
-        chrome.extension.sendRequest({id:'auth'});
-      });
-    });
-
-    function enabledAuthButton() {
-      if (BG.youroom) {
-        $('#auth').attr('disabled', 'disabled');
-        $('#consumer_key').attr('disabled', 'disabled');
-        $('#consumer_secret').attr('disabled', 'disabled');
-      } else if ($('#consumer_key').val().length == 0 || $('#consumer_secret').val().length == 0) {
-        $('#auth').attr('disabled', 'disabled');
-      } else {
-        $('#auth').attr('disabled', '');
-      }
-    }
-
-    function save() {
-      enabledAuthButton();
-      options.consumer_key = $('#consumer_key').val();
-      options.consumer_secret = $('#consumer_secret').val();
-      options.save();
-      setTimeout(function () {
-        BG.timer.restart();
-      }, 5000);
-    }
-  </script>
 </head>
 <body>
 <div id="page-top-outer">
