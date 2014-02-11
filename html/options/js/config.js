@@ -7,7 +7,6 @@ $(function () {
   var host = 'chrome-extension://' + location.host + '/html/options/';
   $("#news").attr("href", host + 'news.html');
   $("#about").attr("href", host + 'about.html');
-  $('#configImage').lightBox();
   $('#consumer_key').val(options.consumer_key).change(save);
   $('#consumer_secret').val(options.consumer_secret).change(save);
   enabledAuthButton();
