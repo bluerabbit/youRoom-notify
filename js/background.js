@@ -1,5 +1,5 @@
 var options      = Options.load();
-var notification = new Notification('images/notification_icon.png', 1000 * options.autoCloseTimeSS);
+var notification = new Notification();
 var timer        = new Timer(1000 * 60 * options.timerMI); // n分に一回
 
 if (localStorage['oauth_tokenundefined'] != null) {
@@ -36,7 +36,7 @@ function extensionUpdateNotify(options) {
     // アップデート
     if (options.appVersion.substring(0, options.appVersion.lastIndexOf(".")) != manifest.version.substring(0, manifest.version.lastIndexOf("."))) {
       // 末尾のバージョンNoを除いた値が更新されていたら通知(末尾のバージョンNoだけが変わっている場合は通知しない)
-      notification.open({url: '/html/options/news.html', title: '[youRoom Notify Update]', body: manifest.version + "に更新されました。"});
+      notification.open({title: '[youRoom Notify Update]', body: manifest.version + "に更新されました。"});
     }
     options.appVersion = manifest.version;
     options.save();
@@ -47,8 +47,7 @@ function notify(youroom, options) {
   youroom.find_by_since(options.lastRequestDate, function (data) {
     data.forEach(function (object) {
       var entry = object.entry;
-      notification.open({url:   YouRoom.url(entry),
-                         title: "[" + YouRoom.roomName(entry) + "]" + ' @' + YouRoom.userName(entry) + ' ' + moment(entry.updated_at).format('MM/DD HH:mm'),
+      notification.open({title: "[" + YouRoom.roomName(entry) + "]" + ' @' + YouRoom.userName(entry) + ' ' + moment(entry.updated_at).format('MM/DD HH:mm'),
                          body:  entry.content});
     });
     options.lastRequestDate = new Date();
